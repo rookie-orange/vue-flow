@@ -73,7 +73,8 @@ export function useActions(state: State, nodeLookup: ComputedRef<NodeLookup>, ed
   }
 
   const getHandleConnections: Actions['getHandleConnections'] = ({ id, type, nodeId }) => {
-    return Array.from(state.connectionLookup.get(`${nodeId}-${type}-${id ?? null}`)?.values() ?? [])
+    const handleSuffix = id ? `-${type}-${id}` : `-${type}`
+    return Array.from(state.connectionLookup.get(`${nodeId}${handleSuffix}`)?.values() ?? [])
   }
 
   const findNode: Actions['findNode'] = (id) => {
@@ -661,7 +662,11 @@ export function useActions(state: State, nodeLookup: ComputedRef<NodeLookup>, ed
       const overlappingArea = getOverlappingArea(currNodeRect, nodeRect)
       const partiallyVisible = partially && overlappingArea > 0
 
-      if (partiallyVisible || overlappingArea >= Number(nodeRect.width) * Number(nodeRect.height)) {
+      if (
+        partiallyVisible ||
+        overlappingArea >= currNodeRect.width * currNodeRect.height ||
+        overlappingArea >= Number(nodeRect.width) * Number(nodeRect.height)
+      ) {
         intersections.push(n)
       }
     }

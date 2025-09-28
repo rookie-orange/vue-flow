@@ -85,8 +85,9 @@ export function useHandle({
 
     // when vue-flow is used inside a shadow root we can't use document
     const doc = getHostForElement(event.target as HTMLElement)
+    const clickedHandle = event.currentTarget as HTMLElement | null
 
-    if ((isMouseTriggered && event.button === 0) || !isMouseTriggered) {
+    if (clickedHandle && ((isMouseTriggered && event.button === 0) || !isMouseTriggered)) {
       const node = findNode(toValue(nodeId))
 
       let isValidConnectionHandler = toValue(isValidConnection) || isValidConnectionProp.value || alwaysValid
@@ -100,7 +101,6 @@ export function useHandle({
       let autoPanId = 0
 
       const { x, y } = getEventPosition(event)
-      const clickedHandle = doc?.elementFromPoint(x, y)
       const handleType = getHandleType(toValue(edgeUpdaterType), clickedHandle)
       const containerBounds = vueFlowRef.value?.getBoundingClientRect()
 
@@ -207,6 +207,7 @@ export function useHandle({
           edges.value,
           nodes.value,
           findNode,
+          nodeLookup.value,
         )
 
         handleDomNode = result.handleDomNode
@@ -242,18 +243,19 @@ export function useHandle({
           return
         }
 
+        const connectingHandle = closestHandle ?? result.toHandle
         updateConnection(
-          closestHandle && isValid
+          connectingHandle && isValid
             ? rendererPointToPoint(
                 {
-                  x: closestHandle.x,
-                  y: closestHandle.y,
+                  x: connectingHandle.x,
+                  y: connectingHandle.y,
                 },
                 viewport.value,
               )
             : connectionPosition,
           result.toHandle,
-          getConnectionStatus(!!closestHandle, isValid),
+          getConnectionStatus(!!connectingHandle, isValid),
         )
 
         previousConnection = newConnection
@@ -276,6 +278,11 @@ export function useHandle({
       }
 
       function onPointerUp(event: MouseTouchEvent) {
+        // Prevent multi-touch aborting connection
+        if ('touches' in event && event.touches.length > 0) {
+          return
+        }
+
         if ((closestHandle || handleDomNode) && connection && isValid) {
           if (!onEdgeUpdate) {
             emits.connect(connection)
@@ -377,6 +384,7 @@ export function useHandle({
       edges.value,
       nodes.value,
       findNode,
+      nodeLookup.value,
     )
 
     const isOwnHandle = result.connection?.source === result.connection?.target

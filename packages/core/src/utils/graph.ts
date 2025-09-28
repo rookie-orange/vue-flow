@@ -1,6 +1,5 @@
 import { markRaw } from 'vue'
 import type {
-  Actions,
   Box,
   Connection,
   CoordinateExtent,
@@ -16,12 +15,13 @@ import type {
   GraphNode,
   MaybeElement,
   Node,
+  NodeLookup,
   Rect,
   ViewportTransform,
   XYPosition,
   XYZPosition,
 } from '../types'
-import { isDef, snapPosition, warn } from '.'
+import { isDef, isMacOs, snapPosition, warn } from '.'
 
 export function nodeToRect(node: GraphNode): Rect {
   return {
@@ -471,12 +471,12 @@ export function getXYZPos(parentPos: XYZPosition, computedPosition: XYZPosition)
   }
 }
 
-export function isParentSelected(node: GraphNode, findNode: Actions['findNode']): boolean {
+export function isParentSelected(node: GraphNode, nodeLookup: NodeLookup): boolean {
   if (!node.parentNode) {
     return false
   }
 
-  const parent = findNode(node.parentNode)
+  const parent = nodeLookup.get(node.parentNode)
   if (!parent) {
     return false
   }
@@ -485,7 +485,7 @@ export function isParentSelected(node: GraphNode, findNode: Actions['findNode'])
     return true
   }
 
-  return isParentSelected(parent, findNode)
+  return isParentSelected(parent, nodeLookup)
 }
 
 export function getMarkerId(marker: EdgeMarkerType | undefined, vueFlowId?: string) {
@@ -503,4 +503,10 @@ export function getMarkerId(marker: EdgeMarkerType | undefined, vueFlowId?: stri
     .sort()
     .map((key) => `${key}=${marker[<keyof EdgeMarkerType>key]}`)
     .join('&')}`
+}
+
+export function wheelDelta(event: any) {
+  const factor = event.ctrlKey && isMacOs() ? 10 : 1
+
+  return -event.deltaY * (event.deltaMode === 1 ? 0.05 : event.deltaMode ? 1 : 0.002) * factor
 }

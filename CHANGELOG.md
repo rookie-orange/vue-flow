@@ -2,6 +2,105 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.46.5] - 2025-09-22
+
+[dee75dd](dee75ddc1ad912eac67467ad52d71fd0bce93391)...[9e2359c](9e2359c98a38b771d7f44f4a77615d6d7cf5bbbe)
+
+### Bug Fixes
+
+- Unwrap connection line status ref (#1962) ([7729eff](7729eff1f0cd1462af0aaae17c2599292a343048))
+
+### Miscellaneous Tasks
+
+- Cleanup ([f3dc522](f3dc5226184df08d155b2eecb84dd70351960150))
+
+## [1.46.4] - 2025-09-11
+
+[c9c9040](c9c9040fb85a425081adbc4cdddf17df3c7b5a38)...[dee75dd](dee75ddc1ad912eac67467ad52d71fd0bce93391)
+
+### Bug Fixes
+
+- Remove node border styles from required styles (#1954) ([2ebe3d9](2ebe3d9088bc64524fe97cd88b3c9d32e0fe6643))
+
+## [1.46.3] - 2025-09-05
+
+[ed35bde](ed35bdeb0cefcdd16d543a1145b3770dd1053fc8)...[c9c9040](c9c9040fb85a425081adbc4cdddf17df3c7b5a38)
+
+### Bug Fixes
+
+- Add nullish operator to check visibility (#1942) ([67832e5](67832e528d9ff993773844a7bcb13026135c8492))
+
+## [1.46.2] - 2025-08-31
+
+[7a46a74](7a46a746acb8f3db09c01f31f76b6749032ad2fe)...[ed35bde](ed35bdeb0cefcdd16d543a1145b3770dd1053fc8)
+
+### Bug Fixes
+
+- Only emit position changes if  change occurred (#1939) ([2bacaa8](2bacaa8b2df18f924302af2a4b39cdcdc4b1bc41))
+
+## [1.46.1] - 2025-08-31
+
+[e293519](e293519ee2ec3fd8103707491cbbc401e1be09af)...[7a46a74](7a46a746acb8f3db09c01f31f76b6749032ad2fe)
+
+### Bug Fixes
+
+- Use valid handle result as connecting handle (#1932) ([dd48e47](dd48e47d02a81cfabc2ba32f0bf24bc9b1f09f76))
+- Correctly check if an event has any listeners bound to it (#1935) ([e9f0cdf](e9f0cdff3d26141a01cfcad0e355d9607210a68d))
+- Skip resize handler if node not visible (#1936) ([c9c26d0](c9c26d02f6c2e875381a9eb93b774857658b2d31))
+- Prevent multi touch from aborting connections (#1938) ([490473d](490473d997120ab640a25a7012f34c223f6d41a7))
+
+### Documentation
+
+- Remove info on pointer events removal when elements selectable is false ([3c96b38](3c96b385c31f005b04460165817d8c803504772a))
+
+### Refactor
+
+- Avoid passing reactive values to position changes (#1937) ([bd606b9](bd606b98a205a6fe9f40be76a57a025a7605e424))
+
+## [1.46.0] - 2025-08-15
+
+[e094426](e0944266bf1ed813db0cf70fb46fac7c87aa17c5)...[e293519](e293519ee2ec3fd8103707491cbbc401e1be09af)
+
+### Bug Fixes
+
+- Use 1 as zoomstep for minimap and apply factor based on macOs (#1923) ([58a52e1](58a52e137421e5939313760c91f6da2791d3777d))
+- Fetch correct source and target nodes for isValidConnection (#1922) ([c2aad1e](c2aad1e43bd5c3bc661b2a4f907591468ab49006))
+
+### Documentation
+
+- Helper lines (#1915) ([5dc276a](5dc276af52994f83ecd96e86ddcf8dd1a339ac80))
+
+### Features
+
+- Expose wheelDelta utility (#1918) ([5fbbc82](5fbbc826e5929d10c01605192ea4598e0a520883))
+
+### Refactor
+
+- Use event target for Handle pointer down events (#1924) ([299a045](299a04531e20a626494e32ee4d92a1cf5bbda07b))
+
+## [1.45.1] - 2025-08-07
+
+[45225bf](45225bf973bccca97183da9f8105dcc6a3b0bf89)...[e094426](e0944266bf1ed813db0cf70fb46fac7c87aa17c5)
+
+### Bug Fixes
+
+- Use correct handlesuffix in getHandleConnections  (#1880) ([a43da6f](a43da6f1ec2320fa17c3b8cdfcfd70348b1b2681))
+- Add `type="button"` to avoid form submissions (#1911) (#1912) ([dfae661](dfae6619e2ec9827ca29f4a760820402c3e2f630))
+- Emit node drag-start, drag and drag-end events on selection drag (#1913) ([ed18865](ed18865525545ff66ef752e0f588a87610c235ce))
+- Calculate overlapping area correctly (#1914) ([e97a65b](e97a65b6b56ee2168b329cd23ee0e9d9099af146))
+
+### Documentation
+
+- Code errors in "Updating Node Data" (#1900) ([b5c4c0e](b5c4c0e3f5b595e2cbb99968f1ccb826d94338ce))
+
+### Examples
+
+- Cleanup basic example ([e094426](e0944266bf1ed813db0cf70fb46fac7c87aa17c5))
+
+### Refactor
+
+- Add auto-scale prop & scale resize controls with zoom level (#1872) ([f4e139f](f4e139f1bcd6038b54efeff83328b06847feeda3))
+
 ## [1.45.0] - 2025-06-10
 
 [a16d851](a16d851894e2c4d7053e34cefd9aa3dc7522ad95)...[45225bf](45225bf973bccca97183da9f8105dcc6a3b0bf89)
